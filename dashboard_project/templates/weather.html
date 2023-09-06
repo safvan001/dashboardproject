@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="{% static 'css/weather.css' %}">
+</head>
+<body>
+<center><h1>WEATHER</h1></center>
+{% for city_weather in weather_data %}
+<div class="container">
+ <div class="weather">
+    <div class="left">
+      <h2>{{ city_weather.temp }}°C</h2>
+      <h3>{{ city_weather.city }}</h3>
+    </div>
+    <div class="right">
+      <div class="icon">
+        <p><img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" width="100px" alt="Weather Icon"></p>
+      </div>
+      <div class="condition">
+        <p>{{ city_weather.description }}</p>
+        <p>{{ city_weather.day }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{% static 'css/Todo.css' %}">
+
+</head>
+<body>
+    <header>
+        <h1>To-Do List</h1>
+    </header>
+    <main>
+
+        <form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+
+            <input type="text" id="taskInput" name="u" placeholder="Add a new task...">
+            <button class="button" type="submit">Add Task</button>
+        </form>
+
+
+              <table class="table mb-4">
+                <thead>
+                  <tr>
+                    <th scope="col">Todo item</th><br>&nbsp
+                    <th scope="col">Status</th><br>&nbsp
+                    <th scope="col">Actions</th><br>&nbsp
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for task in task %}
+                  <tr>
+                    <td>{{task.title}}</td>
+
+                    {% if task.completed == True %}
+                      <td>Completed</td>&nbsp&nbsp
+                    {% else %}
+                      <td>In progress</td>&nbsp&nbsp
+                    {% endif %}
+
+                    <td>
+                      <a href="{% url 'Todo_app:delete' task.title %}"><button type="submit" class="btn btn-danger">Delete</button></a>&nbsp
+                      <a href="{% url 'Todo_app:update' task.title %}"><button type="submit" class="btn btn-success ms-1">Finished</button></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+    </main>
+    <script src="{% static 'js/dash.js' %}"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>
